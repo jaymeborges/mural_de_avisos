@@ -18,10 +18,22 @@ app.get("/all", (req,res)=>{
 
 })
 
-app.post("/new", (req,res)=>{
+app.post("/new", bodyParser.json(), (req,res)=>{
+
+    let id = generateID()
+    let title = req.body.title
+    let description = req.body.description
+
+    posts.push({id,title,description})
+
+    res.send("Post adicionado")
     
 })
 
 app.listen(PORT, ()=>{
      console.log("Server runing on port", PORT)
 })
+
+function generateID(){
+    return Math.random().toString(36).substr(2, 9)
+}
